@@ -6,15 +6,15 @@ class Square extends React.Component {
     render() {
       return (
         <button className="square">
-          {/* TODO */}
+          {this.props.value} 
         </button>
       );
     }
   }
   
   class Board extends React.Component {
-    renderSquare(i) {
-      return <Square />;
+    renderSquare(i) { //renders square component and passes i into it
+      return <Square value={i} />;//passing some data from our Board component to our Square component.
     }
   
     render() {
