@@ -6,21 +6,18 @@ class Square extends React.Component {
     //Note
 //In JavaScript classes, you need to always call super when defining the constructor of a subclass. 
 //All React component classes that have a constructor should start with a super(props) call
-    constructor(props) {
-        super(props)
-        this.state = { // To “remember” things, components use state.
-            value: null,
-        }
-    }
+   
     render() {
-    return (
+     return (
         /// Now we’ll change the Square’s render method to display the current state’s value when clicked
         //By calling this.setState from an onClick handler in the Square’s render method, we tell React to re-render that Square whenever its <button> is clicked
         //Square’s this.state.value will be 'X', so we’ll see the X on the game board. If you click on any Square, an X should show up.
-        <button className="square" 
-        onClick={() => this.setState({value: 'X' })}>
-        {this.state.value} 
-        </button>
+         <button 
+            className="square" 
+            onClick={() => this.props.onClick()}
+         >
+            {this.props.value} 
+         </button>
         );
       }
     }
@@ -28,9 +25,20 @@ class Square extends React.Component {
 
     
   class Board extends React.Component {
+      constructor(props) {
+          super(props)
+          this.state = {
+              squares: Array(9).fill(null),
+          }
+      }
     renderSquare(i) { //renders square component and passes i into it
-      return <Square value={i} />;//passing some data from our Board component to our Square component.
-    }
+      return (
+        <Square 
+          value={this.state.squares[i]}
+          onClick={() => this.handleClick(i)}
+       />
+     ); //passing some data from our Board component to our Square component.
+   }
   
     render() {
       const status = 'Next player: X';
